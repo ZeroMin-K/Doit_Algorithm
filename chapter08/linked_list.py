@@ -38,3 +38,20 @@ class LinkedList:
     def __contains__(self, data: Any) -> bool:
         # 연결리스트에 data가 포함되어 있는지 확인
         return self.search(data) >= 0
+    
+     def add_first(self, data: Any) -> None:
+        # 맨앞에 노드 삽입
+        ptr = self.head
+        self.head = self.current = Node(data, ptr)
+        self.no += 1
+
+    def add_last(self, data: Any):
+        # 맨 끝에 노드 삽입
+        if self.head is None:   # 리스트가 비어있으면
+            self.add_first(data)    # 맨앞에 노드 삽입
+        else:
+            ptr = self.head
+            while ptr.next is not None:
+                ptr = ptr.next
+            ptr.next = self.current = Node(data, Node)
+            self.no += 1
