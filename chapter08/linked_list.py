@@ -112,3 +112,18 @@ class LinkedList:
             return False
         self.current = self.current.next
         return True  
+
+        def print_current_node(self) -> None:
+        # 주목 노드 출력
+        if self.current is None:
+            print('주목 노드가 존재하지 않음')
+        else:
+            print(self.current.data)
+
+    def print(self) -> None:
+        # 모든 노드 출력
+        ptr = self.head
+    
+        while ptr is not None:
+            print(ptr.data)
+            ptr = ptr.next
