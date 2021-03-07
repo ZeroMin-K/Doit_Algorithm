@@ -1,6 +1,7 @@
 # 포인터로 연결 리스트 구현
 
 from typing import Any, Type
+from __future__ import annotations
 
 class Node:
     # 연결 리스트용 노드 클래스 
@@ -127,3 +128,25 @@ class LinkedList:
         while ptr is not None:
             print(ptr.data)
             ptr = ptr.next
+            
+    def __iter__(self) -> LinkedListIterator:
+        # 이터레이터 반환
+        return LinkedListIterator(self.head)
+
+class LinkedListIterator:
+    # 클래스 LinkedList의 이터레이터용 클래스
+
+    def __init__(self, head: Node):
+        self.current = head
+    
+    def __iter__(self) -> LinkedListIterator:
+        return self
+
+    def __next__(self) -> Any:
+        if self.current is None:
+            raise StopIteration
+        else:
+            data = self.current.data
+            self.current = self.current.next
+            return data
+
