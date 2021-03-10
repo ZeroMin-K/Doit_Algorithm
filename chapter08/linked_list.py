@@ -54,7 +54,7 @@ class LinkedList:
             ptr = self.head
             while ptr.next is not None:
                 ptr = ptr.next
-            ptr.next = self.current = Node(data, Node)
+            ptr.next = self.current = Node(data, None)
             self.no += 1
             
     def remove_first(self) -> None:
