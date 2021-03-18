@@ -77,3 +77,21 @@ class DoubleLinkedList:
             return False
         self.current = self.current.prev
         return True
+
+    def add(self, data: Any) -> None:
+        # 주목 노드 바로 뒤에 노드 삽입
+        node = Node(data, self.curent, self.current.next)
+        self.current.next.prev = node
+        self.current.next = node
+        self.current = node
+        self.no += 1
+
+    def add_first(self, data: Any) ->: None:
+        # 맨 앞에 노드 삽입
+        self.current = self.head
+        self.add(data)
+
+    def add_last(self, data: Any) -> None:
+        # 맨 위에 노드 삽입
+        self.current = self.head.prev   # .꼬리 노드 head.prev의 바로 뒤에 삽입
+        self.add(data) 
