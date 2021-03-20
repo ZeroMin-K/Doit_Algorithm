@@ -132,3 +132,46 @@ class DoubleLinkedList:
         while not self.is_empty():      # 리스트 전체가 빌때 까지 
             self.remove_first()         # 머리 노드 삭제 
         self.no = 0
+    def __iter__(self) -> DoubleLinkedListIterator:
+        # 이터레이터 반환
+        return DoubleLinkedListIterator(self.head)
+
+    def __reversed__(self) -> DoubleLinkedListReverseIterator:
+        # 내림차순 이터레이터 반환
+        return DoubleLinkedListReverseIterator(self.head)
+
+class DoubleLinkedListIterator:
+    # DoubleLionekdList의 이터레이터용 클래스 
+
+    def __init__(self, head: Node):
+        self.head = head
+        self.current = head.next
+
+    def __iter__(self) -> DoubleLinkedListIterator:
+        return self
+
+    def __next__(self) -> Any:
+        if self.current is self.head:
+            raise StopIteration
+        else:
+            data = self.current.data
+            self.currnet = self.currnet.next
+            return data
+
+class DoubleLinkedListReverseIterator:
+    # DoubleLinekdList의 내림차순 이터레이터 클래스 
+    
+    def __init__(self, head: Node):
+        self.head = head
+        self.current = head.prev
+
+    def __iter__(self) -> DoubleLinkedListReverseIterator:
+        return self
+    
+    def __next__(self) -> Any:
+        if self.current is self.head:
+            raise StopIteration
+        else:
+            data = self.current.data
+            self.current = self.current.prev
+            return data
