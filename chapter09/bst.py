@@ -18,3 +18,16 @@ class BinarySearchTree:
     def __init__(self):
         # 초기화
         self.root = None
+
+    def search(self, key: Any) -> Any:
+        # 키가 key인 노드 검색
+        p = self.root
+        while True:
+            if p is None:
+                return None
+            if key == p.key:
+                return p.value
+            elif key < p.key:
+                p = p.left
+            else:
+                p = p.right 
