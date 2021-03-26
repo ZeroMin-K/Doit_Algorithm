@@ -56,3 +56,56 @@ class BinarySearchTree:
             return True
         else:
             return add_node(self.root, key, value)
+        
+    def remove(self, key: Any) -> bool:
+        # 키가 key인 노드 삭제
+        p = self.root               # 스캔 중인 노드
+        parent = None               # 스캔 중인 노드의 부모 노드
+        is_left_child = True        # p는 pparent의 왼족 자식 노드인지 확인 
+
+        while True:
+            if p is None:           # 더이상 진행할 수 없으면
+                return False        # 키는 존재 하지 않음
+
+            if key == p.key:        
+                break
+            else:
+                parent = p          # 가지를 내려가기전에 부모 설정
+                if key < p.key:     # key쪽이 작으면
+                    is_left_child = True    # 여기서 내려가는 것은 왼쪽 자시
+                    p = p.left              # 왼쪽 서브 트리에서 검색
+                else:
+                    is_left_child = False   # 여기서 내려가는 것은 오른쪽 자식
+                    p = p.right             # 오른쪽 서브트리에서 검색
+
+        if p.left is None:          # p에 왼쪽 자식이 없으면
+            if p is self.root:
+                self.root = p.right
+            elif is_left_child:
+                parent.left = p.right       # 부모의 왼쪽 포인터가 오른쪽 자식을 가르킴
+            else:
+                parent.right = p.right      # 부모의 오른쪽 포인터가 오른쪽 자식을 가르킴
+        elif p.right is None:               # p에 오른쪽 자식이 없으면
+            if p is self.root:
+                self.root = p.left
+            elif is_left_child:
+                parent.left = p.left        # 부모의 왼쪽 포인터가 왼쪽 자식을 가르킴
+            else:
+                parent.right = p.left       # 부모의 오른쪽 포인터가 왼쪽 자식을 가르킴
+        else:
+            parent = p
+            left = p.left                   # 서브트리 안에서 가장 큰 노드
+            is_left_child = True
+            while left.right is not None:   # 가장 큰 노드 left를 검색
+                parent = left
+                left = left.right
+                is_lsef_child = False
+        
+            p.key = left.key                # left의 키를 p로 이동
+            p.value = left.value            # left의 데이터를 p로 이동
+            if is_lsef_child:
+                parent.left = left.left     # left를 삭제
+            else:
+                parent.right = left.left    # left를 삭제
+            
+        return True
