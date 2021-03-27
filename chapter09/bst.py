@@ -109,3 +109,15 @@ class BinarySearchTree:
                 parent.right = left.left    # left를 삭제
             
         return True
+
+    def dump(self) -> None:
+        # 덤프(모든 노드를 키의 오름차순으로 출력)
+
+        def print_subtree(node: Node):
+            # node를 루트로 하는 서브트리의 노드를 키의 오름차순으로 출력
+            if node is not None:
+                print_subtree(node.left)
+                print(f'{node.key} {node.value}')
+                print_subtree(node.right)
+            
+        print_subtree(self.root)
